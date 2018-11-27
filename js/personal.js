@@ -7,7 +7,8 @@ var data = {
     position: "",
     sex: ""
   },
-  employees: []
+  employees: [],
+  total: 0
 }
 
 const app = new Vue({
@@ -23,10 +24,20 @@ const app = new Vue({
           for(let key in data){
             data[key].id = key
               employeesList.push(data[key]);
-            }
-            this.employees = employeesList
-          })
-        },
+          }
+          this.employees = employeesList
+          this.totalIncome();
+        })
+     },
+
+    totalIncome: function(){
+      let total = 0;
+      this.employees.forEach(function(element){
+        total += element.income;
+      })
+      console.log(total)
+      this.total = total;
+    },
 
     sendMessage: function (data) {
       console.log(data);
