@@ -24,9 +24,7 @@
             <i class="icon-reorder shaded"></i></a><a class="brand" href="index.html">{{username}} </a>
           <div class="nav-collapse collapse navbar-inverse-collapse">
             <ul class="nav nav-icons">
-              <li class="active"><a href="#"><i class="icon-envelope"></i></a></li>
-              <li><a href="#"><i class="icon-eye-open"></i></a></li>
-              <li><a href="#"><i class="icon-bar-chart"></i></a></li>
+              <li class="active"><a href="message.html"><i class="icon-envelope"></i></a></li>
             </ul>
           </div>
           <form class="navbar-search pull-left input-append" action="#">
@@ -36,18 +34,6 @@
             </button>
           </form>
           <ul class="nav pull-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown
-                <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Item No. 1</a></li>
-                <li><a href="#">Don't Click</a></li>
-                <li class="divider"></li>
-                <li class="nav-header">Example Header</li>
-                <li><a href="#">A Separated link</a></li>
-              </ul>
-            </li>
-            <li><a href="#">Support </a></li>
             <li class="nav-user dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <img src="images/user.png" class="nav-avatar" />
@@ -96,7 +82,7 @@
               <div class="btn-controls">
                 <div class="btn-box-row row-fluid">
                   <a href="#" class="btn-box big span4">
-                    <i class=" icon-random"></i><b>65%</b>
+                    <i class=" icon-random"></i><b>{{percentaje}}</b>
                     <p class="text-muted">
                       Crecimiento
                     </p>
@@ -133,29 +119,11 @@
                     </div>
                   </div>
                   <ul class="widget widget-usage unstyled span4">
-                    <li>
+                    <li v-for="year in years">
                       <p>
-                        <strong>Enero - Marzo</strong> <span class="pull-right small muted">78%</span>
+                        <strong>{{year}}</strong> <span class="pull-right small muted">78%</span>
                         <b-progress height="12px" :value="firstPartOfYear.counter" :max="firstPartOfYear.max" show-progress animated class="progress_bar"></b-progress>
                       </p>
-                    </li>
-                    <li>
-                      <p>
-                        <strong> Abril - Junio</strong> <span class="pull-right small muted">56%</span>
-                      </p>
-                      <b-progress height="12px" :value="secondPartOfTheYear.counter" :max="secondPartOfTheYear.max" show-progress animated variant="danger" class="progress_bar"></b-progress>
-                    </li>
-                    <li>
-                      <p>
-                        <strong>Julio - Septiembre</strong> <span class="pull-right small muted">44%</span>
-                      </p>
-                      <b-progress height="12px" :value="thirdPartOfTheYear.counter" :max="thirdPartOfTheYear.max" show-progress animated variant="warning" class="progress_bar"></b-progress>
-                    </li>
-                    <li>
-                      <p>
-                        <strong>Octubre - Diciembre</strong> <span class="pull-right small muted">67%</span>
-                      </p>
-                      <b-progress height="12px" :value="fourthPartOfTheYear.counter" :max="fourthPartOfTheYear.max" show-progress animated variant="dark" class="progress_bar"></b-progress>
                     </li>
                   </ul>
                 </div>

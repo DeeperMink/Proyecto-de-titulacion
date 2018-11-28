@@ -1,53 +1,5 @@
 Vue.use(VueHighcharts);
 
-var options = {
-  title: {
-    text: 'Gráfica de ganancias',
-    x: -20 //center
-  },
-  subtitle: {
-    text: 'BiReport',
-    x: -20
-  },
-  xAxis: {
-    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-    ]
-  },
-  yAxis: {
-    title: {
-      text: 'Temperature (°C)'
-    },
-    plotLines: [{
-      value: 0,
-      width: 1,
-      color: '#808080'
-    }]
-  },
-  tooltip: {
-    valueSuffix: '°C'
-  },
-  legend: {
-    layout: 'vertical',
-    align: 'right',
-    verticalAlign: 'middle',
-    borderWidth: 0
-  },
-  series: [{
-    name: 'Tokyo',
-    data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-  }, {
-    name: 'New York',
-    data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
-  }, {
-    name: 'Berlin',
-    data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
-  }, {
-    name: 'London',
-    data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-  }]
-};
-
 var data = {
   username: "",
   clients:{
@@ -119,6 +71,7 @@ var data = {
         color: '#808080'
       }]
     },
+    years:[],
     tooltip: {
       valueSuffix: '°C'
     },
@@ -130,18 +83,25 @@ var data = {
     },
     series: [{
       name: 'Tokyo',
-      data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2]
+      data: [7.0, 6.9, 9.5, 14.5, 18.2]
     }, {
       name: 'New York',
-      data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8]
+      data: [-0.2, 0.8, 5.7, 11.3, 17.0]
     }, {
       name: 'Berlin',
-      data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6]
+      data: [-0.9, 0.6, 3.5, 8.4, 13.5]
     }, {
       name: 'London',
-      data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0]
+      data: [3.9, 4.2, 5.7, 8.5, 11.9]
     }]
-  }
+  },
+  a1: 0,
+  a2: 0,
+  a3: 0,
+  a4: 0,
+  a5: 0,
+  percentaje: 0,
+  mau: 0
 }
 
 const app = new Vue({
@@ -205,7 +165,7 @@ const app = new Vue({
       let amount = [1200, 1400, 3000, 200, 1200, 4000, 240, 1800, 200, 3000, 4000, 1000, 3090, 2109, 2019, 592, 6820, 145, 12345, 430];
       let thing = ["Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Desarrollo de aplicación web", "Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Adword", "Publicidad Web - Logotipo", "Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Adword", "Adword", "Adword", "Desarrollo de aplicación web", "Adword", "Desarrollo de aplicación web", "Publicidad Web - Anuncio", "Desarrollo de aplicación web", "Desarrollo de aplicación web"];
       let business = ["Turismo", "Desarrollo", "Comercio", "Tienda", "Abarrotes", "Turismo", "Consultoria", "Turismo", "Venta de artículos varios", "Transporte", "Venta", "Turismo", "Constructora", "Desarrolladora", "Finanzas", "Call Center", "Abarrotes", "Transporte", "Tienda", "Comercio"];
-      let year = [2013, 2013, 2014, 2014, 2014, 2014, 2014, 2015, 2015, 2015, 2016, 2016, 2016, 2017, 2017, 2017, 2018, 2018, 2010, 2010];
+      let year = [2013, 2013, 2014, 2014, 2014, 2014, 2014, 2015, 2015, 2015, 2016, 2016, 2016, 2017, 2017, 2017, 2014, 2015, 2014, 2017];
       for(let i = 0; i < client.length; i++){
         console.log(i);
         this.sales.id = i;
@@ -260,12 +220,31 @@ const app = new Vue({
       this.totalSales = total;
     },
 
+
     getAllYearsForChart: function(){
       let years = [];
       this.sales.forEach(function(element){
         years.push(element.year);
       })
       this.options.xAxis.categories = years.filter((v, i, a) => a.indexOf(v) === i).sort()
+      this.years = years.filter((v, i, a) => a.indexOf(v) === i).sort()
+    },
+
+    salesPercentage: function () {
+      this.$http.get('https://bireport-4aedd.firebaseio.com/sales.json')
+        .then(function (data) {
+          for (var key in data.body) {
+            if (data.body.hasOwnProperty(key)) {
+              data.body[key].year === 2013 ? this.a1 += data.body[key].amount : this.a1 += 0;
+              data.body[key].year === 2014 ? this.a2 += data.body[key].amount : this.a2 += 0;
+              data.body[key].year === 2015 ? this.a3 += data.body[key].amount : this.a3 += 0;
+              data.body[key].year === 2016 ? this.a4 += data.body[key].amount : this.a4 += 0;
+              data.body[key].year === 2017 ? this.a5 += data.body[key].amount : this.a5 += 0;
+            }
+          }
+          console.log((((this.a2 - this.a1) / this.a1) + ((this.a3 - this.a2) / this.a2) + ((this.a4 - this.a3) / this.a3) + ((this.a5 - this.a4) / this.a4)) * 100);
+          this.percentaje = (((this.a2 - this.a1) / this.a1) + ((this.a3 - this.a2) / this.a2) + ((this.a4 - this.a3) / this.a3) + ((this.a5 - this.a4) / this.a4)) * 100;
+        })
     }
   },
 
@@ -273,6 +252,7 @@ const app = new Vue({
     this.getDataFromUser();
     this.getEmployees();
     this.getTotalAmountOfSales();
+    this.salesPercentage();
     //this.fillDataClients();
     //this.fillDataEmployees();
     //this.fillDataOfNumberOfSales();
