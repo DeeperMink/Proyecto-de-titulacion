@@ -63,7 +63,7 @@ var data = {
     },
     yAxis: {
       title: {
-        text: 'Temperature (°C)'
+        text: 'Dinero existente'
       },
       plotLines: [{
         value: 0,
@@ -71,7 +71,6 @@ var data = {
         color: '#808080'
       }]
     },
-    years:[],
     tooltip: {
       valueSuffix: '°C'
     },
@@ -82,17 +81,14 @@ var data = {
       borderWidth: 0
     },
     series: [{
-      name: 'Tokyo',
+      name: 'Ventas',
       data: [7.0, 6.9, 9.5, 14.5, 18.2]
     }, {
-      name: 'New York',
+      name: 'Gastós de ventas',
       data: [-0.2, 0.8, 5.7, 11.3, 17.0]
     }, {
-      name: 'Berlin',
+      name: 'Gastós Administratívos',
       data: [-0.9, 0.6, 3.5, 8.4, 13.5]
-    }, {
-      name: 'London',
-      data: [3.9, 4.2, 5.7, 8.5, 11.9]
     }]
   },
   a1: 0,
@@ -101,7 +97,8 @@ var data = {
   a4: 0,
   a5: 0,
   percentaje: 0,
-  mau: 0
+  mau: 0,
+  years: [],
 }
 
 const app = new Vue({
