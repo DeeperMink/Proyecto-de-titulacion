@@ -16,7 +16,8 @@ var data = {
     income: 0,
     number: "",
     address: ""
-  }
+  },
+  employees:[]
 }
 
 const app = new Vue({
@@ -73,11 +74,26 @@ const app = new Vue({
             console.log(data);
           })
       }
+    },
+
+    getEmployees: function () {
+      this.$http.get('https://bireport-4aedd.firebaseio.com/employees.json', this.contact)
+        .then(function (data) {
+          return data.json();
+        }).then(function (data) {
+          var employeesList = [];
+          for (let key in data) {
+            data[key].id = key
+            employeesList.push(data[key]);
+          }
+          this.employees = employeesList
+        })
     }
   },
 
   beforeMount() {
     this.getDataFromUser();
+    this.getEmployees();
     //this.fillDataClients();
     //this.fillDataEmployees();
   },
