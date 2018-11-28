@@ -25,7 +25,8 @@ var data = {
     thing: "",
     business: "",
     year: 0
-  }
+  },
+  totalSales: 0
 }
 
 const app = new Vue({
@@ -47,7 +48,7 @@ const app = new Vue({
       let numbers = ["91-(287)-5-27-81", "91-(287 )- 5-00-17", "91-(287)- 5-42-73 - 5 40 99", "91-(287 )-5-14-17", "91-(287)-5-39-32", "91-(287 )- 53188 - 5 02 86", "91-(287)- 5-38-32", "91(287)5-15-79 - 5 23 40", "91-(287)-50605", "91-(287)-5-38-32", "01 287 5 21 80", "5 12 14", "01 287 5 35 05", "01 287 5 35 59", "01 287 5 37 77", "01 287 5 30 90", "01 287 5 43 12", "91-(287)-5-25-69", "91-(287)- 5-25-69", "91-(287) :91-(287)-5-25-82 - 5-32-19"];
       for (let i = 0; i < 20; i++) {
         console.log(i);
-        this.clients.id = i;
+        this.clients.idClient = i;
         this.clients.name = name[i];
         this.clients.address = addresses[i];
         this.clients.business = bussiness[i];
@@ -117,12 +118,37 @@ const app = new Vue({
           }
           this.employees = employeesList
         })
-    }
+    },
+
+    getTotalAmountOfSales: function(){
+      this.$http.get('https://bireport-4aedd.firebaseio.com/sales.json', this.contact)
+        .then(function (data) {
+          return data.json();
+        }).then(function (data) {
+          var salesList = [];
+          for (let key in data) {
+            data[key].id = key
+            salesList.push(data[key]);
+          }
+          this.sales = salesList;
+          this.totalAmountOfSales();
+        })
+    },
+
+    totalAmountOfSales: function () {
+      let total = 0;
+      this.sales.forEach(function (element) {
+        total += element.amount;
+      });
+      console.log("Ventas totales:", total)
+      this.totalSales = total;
+    },
   },
 
   beforeMount() {
     this.getDataFromUser();
     this.getEmployees();
+    this.getTotalAmountOfSales();
     //this.fillDataClients();
     //this.fillDataEmployees();
     //this.fillDataOfNumberOfSales();
