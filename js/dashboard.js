@@ -17,7 +17,15 @@ var data = {
     number: "",
     address: ""
   },
-  employees:[]
+  employees:[],
+  sales:{
+    id: 0,
+    client: 0,
+    amount: 0,
+    thing: "",
+    business: "",
+    year: 0
+  }
 }
 
 const app = new Vue({
@@ -76,6 +84,27 @@ const app = new Vue({
       }
     },
 
+    fillDataOfNumberOfSales: function(){
+      let client = [1, 2, 3, 6, 8, 5, 4, 9, 16, 14, 16, 12, 13, 19, 2, 7, 0, 4, 3, 7];
+      let amount = [1200, 1400, 3000, 200, 1200, 4000, 240, 1800, 200, 3000, 4000, 1000, 3090, 2109, 2019, 592, 6820, 145, 12345, 430];
+      let thing = ["Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Desarrollo de aplicación web", "Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Adword", "Publicidad Web - Logotipo", "Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Adword", "Adword", "Adword", "Desarrollo de aplicación web", "Adword", "Desarrollo de aplicación web", "Publicidad Web - Anuncio", "Desarrollo de aplicación web", "Desarrollo de aplicación web"];
+      let business = ["Turismo", "Desarrollo", "Comercio", "Tienda", "Abarrotes", "Turismo", "Consultoria", "Turismo", "Venta de artículos varios", "Transporte", "Venta", "Turismo", "Constructora", "Desarrolladora", "Finanzas", "Call Center", "Abarrotes", "Transporte", "Tienda", "Comercio"];
+      let year = [2013, 2013, 2014, 2014, 2014, 2014, 2014, 2015, 2015, 2015, 2016, 2016, 2016, 2017, 2017, 2017, 2018, 2018, 2010, 2010];
+      for(let i = 0; i < client.length; i++){
+        console.log(i);
+        this.sales.id = i;
+        this.sales.client = client[i];
+        this.sales.amount = amount[i];
+        this.sales.thing = thing[i];
+        this.sales.business = business[i];
+        this.sales.year = year[i];
+        this.$http.post('https://bireport-4aedd.firebaseio.com/sales.json', this.sales)
+          .then(function(data){
+            console.log(data);
+          })
+      }
+    },
+
     getEmployees: function () {
       this.$http.get('https://bireport-4aedd.firebaseio.com/employees.json', this.contact)
         .then(function (data) {
@@ -96,5 +125,6 @@ const app = new Vue({
     this.getEmployees();
     //this.fillDataClients();
     //this.fillDataEmployees();
+    //this.fillDataOfNumberOfSales();
   },
 })
