@@ -12,6 +12,7 @@
     <link type="text/css" href="css/theme.css" rel="stylesheet">
     <link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
     <link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
   </head>
 
 <body>
@@ -135,38 +136,26 @@
                     <li>
                       <p>
                         <strong>Enero - Marzo</strong> <span class="pull-right small muted">78%</span>
+                        <b-progress height="12px" :value="firstPartOfYear.counter" :max="firstPartOfYear.max" show-progress animated class="progress_bar"></b-progress>
                       </p>
-                      <div class="progress tight">
-                        <div class="bar" style="width: 78%;">
-                        </div>
-                      </div>
                     </li>
                     <li>
                       <p>
                         <strong> Abril - Junio</strong> <span class="pull-right small muted">56%</span>
                       </p>
-                      <div class="progress tight">
-                        <div class="bar bar-success" style="width: 56%;">
-                        </div>
-                      </div>
+                      <b-progress height="12px" :value="secondPartOfTheYear.counter" :max="secondPartOfTheYear.max" show-progress animated variant="danger" class="progress_bar"></b-progress>
                     </li>
                     <li>
                       <p>
                         <strong>Julio - Septiembre</strong> <span class="pull-right small muted">44%</span>
                       </p>
-                      <div class="progress tight">
-                        <div class="bar bar-warning" style="width: 44%;">
-                        </div>
-                      </div>
+                      <b-progress height="12px" :value="thirdPartOfTheYear.counter" :max="thirdPartOfTheYear.max" show-progress animated variant="warning" class="progress_bar"></b-progress>
                     </li>
                     <li>
                       <p>
                         <strong>Octubre - Diciembre</strong> <span class="pull-right small muted">67%</span>
                       </p>
-                      <div class="progress tight">
-                        <div class="bar bar-danger" style="width: 67%;">
-                        </div>
-                      </div>
+                      <b-progress height="12px" :value="fourthPartOfTheYear.counter" :max="fourthPartOfTheYear.max" show-progress animated variant="dark" class="progress_bar"></b-progress>
                     </li>
                   </ul>
                 </div>
@@ -190,6 +179,8 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+  <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
   <script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
   <script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
   <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>

@@ -26,7 +26,26 @@ var data = {
     business: "",
     year: 0
   },
-  totalSales: 0
+  totalSales: 0,
+  firstPartOfYear:{
+    max: 2000,
+    counter: 400
+  },
+  secondPartOfTheYear:{
+    max: 2000,
+    counter: 400
+  },
+  thirdPartOfTheYear:{
+    max: 2000,
+    counter: 400
+  },
+  fourthPartOfTheYear:{
+    max: 2000,
+    counter: 400
+  },
+  exampleBar:{
+    width: "78%"
+  }
 }
 
 const app = new Vue({
