@@ -49,6 +49,8 @@ var data = {
   exampleBar:{
     width: "78%"
   },
+  max: 0,
+  dataForProgress: [],
 
   options:{
     title: {
@@ -73,7 +75,7 @@ var data = {
       }]
     },
     tooltip: {
-      valueSuffix: '°C'
+      valuePrefix: '$'
     },
     legend: {
       layout: 'vertical',
@@ -86,10 +88,10 @@ var data = {
       data: []
     }, {
       name: 'Gastós de ventas',
-      data: [1,1,1,1,1]
+      data: []
     }, {
       name: 'Gastós Administratívos',
-      data: [1,1,1,1,1]
+      data: []
     }]
   },
   a1: 0,
@@ -215,6 +217,7 @@ const app = new Vue({
           this.amountPerYear();
           this.getAdministrativesExpenses();
           this.salesPerYear();
+          this.fillProgressBarData();
         })
     },
 
@@ -249,7 +252,7 @@ const app = new Vue({
               data.body[key].year === 2017 ? this.a5 += data.body[key].amount : this.a5 += 0;
             }
           }
-          console.log((((this.a2 - this.a1) / this.a1) + ((this.a3 - this.a2) / this.a2) + ((this.a4 - this.a3) / this.a3) + ((this.a5 - this.a4) / this.a4)) * 100);
+          console.log("Porcentaje de crecimiento", (((this.a2 - this.a1) / this.a1) + ((this.a3 - this.a2) / this.a2) + ((this.a4 - this.a3) / this.a3) + ((this.a5 - this.a4) / this.a4)) * 100);
           this.percentaje = (((this.a2 - this.a1) / this.a1) + ((this.a3 - this.a2) / this.a2) + ((this.a4 - this.a3) / this.a3) + ((this.a5 - this.a4) / this.a4)) * 100;
           this.getAdministrativesExpenses();
         })
@@ -295,7 +298,17 @@ const app = new Vue({
       console.log("Sueldo de empleados: ", expenses);
       this.totalIncomeEmployeesPerYear = expenses;
       this.options.series[2].data = expenses;
+    },
+
+    fillProgressBarData: function () {
+      let progress = [];
+      this.max = this.totalSales;
+      for(let i = 0; i < this.totalAmountPerYear.length; i++){
+        progress.push(this.totalAmountPerYear[i]);
+      }
+      this.dataForProgress = progress;
     }
+
   },
 
   beforeMount() {
