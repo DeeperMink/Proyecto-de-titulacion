@@ -37,13 +37,7 @@
             <li class="nav-user dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <img src="images/user.png" class="nav-avatar" />
-                <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Your Profile</a></li>
-                <li><a href="#">Edit Profile</a></li>
-                <li><a href="#">Account Settings</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Logout</a></li>
+                <li class="active"><a href="index.html"><i class="icon-times"></i>Cerrar sesión</a></li>
               </ul>
             </li>
           </ul>
@@ -94,7 +88,7 @@
                     </p>
                   </a>
                   <a href="#" class="btn-box big span4">
-                    <i class="icon-money"></i><b>15,152</b>
+                    <i class="icon-money"></i><b>{{budget}}</b>
                     <p class="text-muted">
                       Presupuesto por año
                     </p>
@@ -120,9 +114,9 @@
                   </div>
                   <ul class="widget widget-usage unstyled span4">
                     <h4><b>Ventas totales por año ${{totalSales}}</b></h4>
-                    <li v-for="year in dataForProgress">
+                    <li v-for="(year, index) in dataForProgress">
                       <p>
-                        <strong>{{year}}</strong> <span class="pull-right small muted"></span>
+                        <strong>Año 201{{index+3}} - Total: {{year}}</strong> <span class="pull-right small muted"></span>
                         <b-progress height="12px" :value="year" :max="max" show-progress animated class="progress_bar"></b-progress>
                       </p>
                     </li>

@@ -37,7 +37,7 @@ const app = new Vue({
         total.light += element.light;
         total.internet += element.internet;
       })
-      console.log(total)
+      console.log(total);
       this.total = total;
     }
   },

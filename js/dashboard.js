@@ -101,6 +101,9 @@ var data = {
     }, {
       name: 'Gastós Administratívos',
       data: []
+    },{
+      name: 'Presupuesto',
+      data: []
     }]
   },
   a1: 0,
@@ -114,7 +117,8 @@ var data = {
   totalAmountPerYear: [],
   totalIncomeEmployeesPerYear: [],
   totalSalesPerYear:[],
-  totalIncome: []
+  totalIncome: [],
+  budget: 0
 }
 
 const app = new Vue({
@@ -234,6 +238,20 @@ const app = new Vue({
         })
     },
 
+    getExpenses: function () {
+      this.$http.get('https://bireport-4aedd.firebaseio.com/expenses.json', this.expenses)
+        .then(function (data) {
+          return data.json();
+        }).then(function (data) {
+          var expensesList = [];
+          for (let key in data) {
+            data[key].id = key
+            expensesList.push(data[key]);
+          }
+          this.expenses = expensesList
+        })
+    },
+
     getTotalAmountOfSales: function(){
       this.$http.get('https://bireport-4aedd.firebaseio.com/sales.json', this.contact)
         .then(function (data) {
@@ -251,6 +269,7 @@ const app = new Vue({
           this.getAdministrativesExpenses();
           this.salesPerYear();
           this.fillProgressBarData();
+          this.fillBudget();
           //this.fillDataOfExpenses();
         })
     },
@@ -328,8 +347,16 @@ const app = new Vue({
         expenses[2] = expenses[2] + (element.income * 12);
         expenses[3] = expenses[3] + (element.income * 12);
         expenses[4] = expenses[4] + (element.income * 12);
-      })
-      console.log("Sueldo de empleados: ", expenses);
+      });
+      let expenseList = this.expenses;
+      for(let i = 0; i<expenseList.length; i++){
+        expenses[0] = expenseList[i].personalIncome + expenseList[i].rent + expenseList[i].water + expenseList[i].light + expenseList[i].internet;
+        expenses[1] = expenseList[i].personalIncome + expenseList[i].rent + expenseList[i].water + expenseList[i].light + expenseList[i].internet;
+        expenses[2] = expenseList[i].personalIncome + expenseList[i].rent + expenseList[i].water + expenseList[i].light + expenseList[i].internet;
+        expenses[3] = expenseList[i].personalIncome + expenseList[i].rent + expenseList[i].water + expenseList[i].light + expenseList[i].internet;
+        expenses[4] = expenseList[i].personalIncome + expenseList[i].rent + expenseList[i].water + expenseList[i].light + expenseList[i].internet;
+      }
+      console.log("Total de gastos: ", expenses);
       this.totalIncomeEmployeesPerYear = expenses;
       this.totalIncome = this.totalAmountPerYear.reduce((a, b) => a + b, 0);
       console.log("Sueldo total de empleados: ", this.totalIncome);
@@ -343,6 +370,13 @@ const app = new Vue({
         progress.push(this.totalAmountPerYear[i]);
       }
       this.dataForProgress = progress;
+    },
+
+    fillBudget: function(){
+      let budget = this.budget;
+      let presupuesto = [budget, budget + 100000, budget + 130000, budget + 100000, budget + 150000];
+      this.budget = presupuesto.reduce((a, b) => a + b, 0);
+      this.options.series[3].data = presupuesto;
     }
 
   },
@@ -352,6 +386,7 @@ const app = new Vue({
     this.getEmployees();
     this.getTotalAmountOfSales();
     this.salesPercentage();
+    this.getExpenses();
     //this.fillDataClients();
     //this.fillDataEmployees();
     //this.fillDataOfNumberOfSales();

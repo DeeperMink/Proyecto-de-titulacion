@@ -111,9 +111,6 @@
               .then(() => { window.location.href = `dashboard.html?user=${this.username}` })
               .catch(error => alert('🤯' + error.message))
           }
-        },
-        created(){
-          firebase.auth().onAuthStateChanged(user => { this.authUser = user })
         }
       })
   </script>
