@@ -26,7 +26,8 @@ var data = {
     amount: 0,
     thing: "",
     business: "",
-    year: 0
+    year: 0,
+    cost: 0
   },
   totalSales: 0,
   firstPartOfYear:{
@@ -63,7 +64,7 @@ var data = {
     },
     yAxis: {
       title: {
-        text: 'Dinero existente'
+        text: ''
       },
       plotLines: [{
         value: 0,
@@ -82,13 +83,13 @@ var data = {
     },
     series: [{
       name: 'Ventas',
-      data: [7.0, 6.9, 9.5, 14.5, 18.2]
+      data: []
     }, {
       name: 'Gastós de ventas',
-      data: [-0.2, 0.8, 5.7, 11.3, 17.0]
+      data: [1,1,1,1,1]
     }, {
       name: 'Gastós Administratívos',
-      data: [-0.9, 0.6, 3.5, 8.4, 13.5]
+      data: [1,1,1,1,1]
     }]
   },
   a1: 0,
@@ -99,6 +100,10 @@ var data = {
   percentaje: 0,
   mau: 0,
   years: [],
+  totalAmountPerYear: [],
+  totalIncomeEmployeesPerYear: [],
+  totalSalesPerYear:[]
+  
 }
 
 const app = new Vue({
@@ -159,7 +164,8 @@ const app = new Vue({
 
     fillDataOfNumberOfSales: function(){
       let client = [1, 2, 3, 6, 8, 5, 4, 9, 16, 14, 16, 12, 13, 19, 2, 7, 0, 4, 3, 7];
-      let amount = [1200, 1400, 3000, 200, 1200, 4000, 240, 1800, 200, 3000, 4000, 1000, 3090, 2109, 2019, 592, 6820, 145, 12345, 430];
+      let amount = [12000, 14000, 30000, 2000, 12000, 40000, 2400, 18000, 2000, 30000, 40000, 10000, 30090, 21090, 20190, 5920, 68020, 1450, 123045, 4300];
+      let cost = [1200, 1400, 3000, 200, 1200, 4000, 240, 1800, 200, 3000, 4000, 1000, 3090, 2109, 2019, 592, 6820, 145, 12345, 430];
       let thing = ["Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Desarrollo de aplicación web", "Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Adword", "Publicidad Web - Logotipo", "Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Adword", "Adword", "Adword", "Desarrollo de aplicación web", "Adword", "Desarrollo de aplicación web", "Publicidad Web - Anuncio", "Desarrollo de aplicación web", "Desarrollo de aplicación web"];
       let business = ["Turismo", "Desarrollo", "Comercio", "Tienda", "Abarrotes", "Turismo", "Consultoria", "Turismo", "Venta de artículos varios", "Transporte", "Venta", "Turismo", "Constructora", "Desarrolladora", "Finanzas", "Call Center", "Abarrotes", "Transporte", "Tienda", "Comercio"];
       let year = [2013, 2013, 2014, 2014, 2014, 2014, 2014, 2015, 2015, 2015, 2016, 2016, 2016, 2017, 2017, 2017, 2014, 2015, 2014, 2017];
@@ -171,6 +177,7 @@ const app = new Vue({
         this.sales.thing = thing[i];
         this.sales.business = business[i];
         this.sales.year = year[i];
+        this.sales.cost = cost[i];
         this.$http.post('https://bireport-4aedd.firebaseio.com/sales.json', this.sales)
           .then(function(data){
             console.log(data);
@@ -205,6 +212,9 @@ const app = new Vue({
           this.sales = salesList;
           this.totalAmountOfSales();
           this.getAllYearsForChart();
+          this.amountPerYear();
+          this.getAdministrativesExpenses();
+          this.salesPerYear();
         })
     },
 
@@ -241,7 +251,50 @@ const app = new Vue({
           }
           console.log((((this.a2 - this.a1) / this.a1) + ((this.a3 - this.a2) / this.a2) + ((this.a4 - this.a3) / this.a3) + ((this.a5 - this.a4) / this.a4)) * 100);
           this.percentaje = (((this.a2 - this.a1) / this.a1) + ((this.a3 - this.a2) / this.a2) + ((this.a4 - this.a3) / this.a3) + ((this.a5 - this.a4) / this.a4)) * 100;
+          this.getAdministrativesExpenses();
         })
+    },
+
+    amountPerYear: function(){
+      let amount = [0,0,0,0,0]
+      this.sales.forEach(function(element){
+        if (element.year == 2013){ amount[0] = amount[0] + element.amount }
+        else if (element.year == 2014) { amount[1] = amount[1] + element.amount }
+        else if (element.year == 2015) { amount[2] = amount[2] + element.amount }
+        else if (element.year == 2016) { amount[3] = amount[3] + element.amount }
+        else if (element.year == 2017) { amount[4] = amount[4] + element.amount }
+      })
+      console.log("Ventas totales por año: ",amount);
+      this.totalAmountPerYear = amount
+      this.options.series[0].data = amount;
+    },
+
+    salesPerYear: function () {
+      let sales = [0, 0, 0, 0, 0]
+      this.sales.forEach(function (element) {
+        if (element.year == 2013) { sales[0] = sales[0] + element.cost }
+        else if (element.year == 2014) { sales[1] = sales[1] + element.cost }
+        else if (element.year == 2015) { sales[2] = sales[2] + element.cost }
+        else if (element.year == 2016) { sales[3] = sales[3] + element.cost }
+        else if (element.year == 2017) { sales[4] = sales[4] + element.cost }
+      })
+      console.log("Costo de ventas totales por año: ", sales);
+      this.totalSalesPerYear = sales
+      this.options.series[1].data = sales;
+    },
+
+    getAdministrativesExpenses: function(){
+      let expenses = [0,0,0,0,0]
+      this.employees.forEach(function(element){
+        expenses[0] = expenses[0] + element.income;
+        expenses[1] = expenses[1] + element.income;
+        expenses[2] = expenses[2] + element.income;
+        expenses[3] = expenses[3] + element.income;
+        expenses[4] = expenses[4] + element.income;
+      })
+      console.log("Sueldo de empleados: ", expenses);
+      this.totalIncomeEmployeesPerYear = expenses;
+      this.options.series[2].data = expenses;
     }
   },
 
