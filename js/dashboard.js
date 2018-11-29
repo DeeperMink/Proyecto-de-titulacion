@@ -29,6 +29,15 @@ var data = {
     year: 0,
     cost: 0
   },
+  expenses:{
+    id: 0,
+    personalIncome: 0,
+    rent: 0,
+    water: 0,
+    light: 0,
+    internet: 0,
+    month: ""
+  },
   totalSales: 0,
   firstPartOfYear:{
     max: 2000,
@@ -188,12 +197,27 @@ const app = new Vue({
     },
 
     fillDataOfExpenses: function(){
-      let idExpense = [];
-      let personalIncome = this.totalIncome;
-      let rent = [];
-      let water = [];
-      let light = [];
-      let internet = [];
+      let personalIncomePerMonth = (this.totalIncome / 12);
+      let personalIncome = [personalIncomePerMonth, personalIncomePerMonth, personalIncomePerMonth, personalIncomePerMonth, personalIncomePerMonth, personalIncomePerMonth, personalIncomePerMonth, personalIncomePerMonth, personalIncomePerMonth, personalIncomePerMonth, personalIncomePerMonth, personalIncomePerMonth];
+      let rent = [25000, 25000, 25000, 25000, 25000, 25000, 25000, 25000, 25000, 25000, 25000, 25000];
+      let water = [250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250];
+      let light = [700, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700];
+      let internet = [600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600];
+      let month = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octumbre", "Noviembre", "Diciembre"];
+      for (let i = 0; i < month.length; i++) {
+        console.log(i);
+        this.expenses.id = i;
+        this.expenses.personalIncome = Math.round(personalIncome[i]);
+        this.expenses.rent = rent[i];
+        this.expenses.water = water[i];
+        this.expenses.light = light[i];
+        this.expenses.internet = internet[i];
+        this.expenses.month = month[i];
+        this.$http.post('https://bireport-4aedd.firebaseio.com/expenses.json', this.expenses)
+          .then(function (data) {
+            console.log(data);
+          })
+      }
     },
 
     getEmployees: function () {
@@ -227,6 +251,7 @@ const app = new Vue({
           this.getAdministrativesExpenses();
           this.salesPerYear();
           this.fillProgressBarData();
+          //this.fillDataOfExpenses();
         })
     },
 
