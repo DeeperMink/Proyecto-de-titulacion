@@ -104,8 +104,8 @@ var data = {
   years: [],
   totalAmountPerYear: [],
   totalIncomeEmployeesPerYear: [],
-  totalSalesPerYear:[]
-  
+  totalSalesPerYear:[],
+  totalIncome: []
 }
 
 const app = new Vue({
@@ -144,7 +144,7 @@ const app = new Vue({
       let sex = ["MASCULINO", "FEMENINO ", "MASCULINO", "MASCULINO", "MASCULINO", "MASCULINO", "FEMENINO ", "MASCULINO", "MASCULINO", "FEMENINO ", "FEMENINO ", "MASCULINO", "MASCULINO", "FEMENINO ", "MASCULINO", "FEMENINO ", "MASCULINO", "MASCULINO", "FEMENINO ", "FEMENINO "];
       let position = ["AUXILIAR  ", "ASISTENTE ", "AUXILIAR  ", "ASISTENTE ", "JEFE DE PROYECTO", "GERENTE   ", "AUXILIAR  ", "ASISTENTE ", "ASISTENTE ", "ASISTENTE ", "ASISTENTE ", "ASISTENTE ", "AUXILIAR  ", "JEFE DE PROYECTO", "JEFE DE PROYECTO", "ASISTENTE ", "SUPERVISOR", "SUPERVISOR", "ASISTENTE ", "SUPERVISOR"];
       let date = ["01/01/2000", "06/05/1992", "17/02/1988", "12/03/2001", "21/04/1997", "13/07/1999", "04/06/2000", "16/09/1993", "27/12/2003", "12/02/2004", "25/08/2001", "16/11/2002", "11/11/1995", "03/05/1994", "14/01/2003", "07/10/2001", "18/10/1997", "01/04/2000", "14/12/1998", "23/09/1998"];
-      let income = [1600, 2500, 1600, 2500, 15000, 30000, 1600, 2500, 2500, 2500, 2500, 2500, 1600, 15000, 15000, 2500, 8000, 8000, 2500, 8000];
+      let income = [8000, 7500, 7600, 8500, 11000, 12000, 11000, 6500, 7500, 7500, 7500, 7500, 8600, 8000, 8000, 9500, 8000, 8000, 7500, 8000];
       let numbers = ["938205580", "936545115", "938202768", "938727844", "938350521", "938755645", "936520547", "936565656", "936752156", "938300025", "938385567", "937809812", "936520741", "938202456", "938754554", "936875544", "935880712", "936875255", "936542775"];
       let addresses = ["CALLE BOULEVARD MIGUEL DE CERVANTES SAAVEDRA No. 183", "ROA BARCENAS No. 98 - C", "NIÑOS HÉROES No. 30 C", "SALVADOR DÍAZ MIRON No. 216", "JOSÉ F. GUTIÉRREZ No. 273", "ROBERTO GAYOL SN", "BOSQUES DE CIRUELOS No. 168", "HERIBERTO FRÍAS 1439", "CALLE NICOLÁS BRAVO No. 2", "LLANO DE LOS EUCALIPTOS MZ. 11", "NORTE 46 A No. 3715", "LUZ SAVIÑON No. 305", "ERASMO CASTELLANOS QUINTO No. 376", "JUAN A. GUTIERREZ No. 15", "AVENIDA TLAHUAC No. 6500", "ERNESTO PUGIBET No. 58", "MANUEL JOSÉ OTHÓN No. 98", "AVENIDA EJERCITO NACIONAL No. 436M", "CUAUHTÉMOC No. 55", "CORONAS No. 120 - 2", "BAHIA DE MAGDALENA No. 22"];
       for(let i = 0; i<names.length; i++){
@@ -165,12 +165,12 @@ const app = new Vue({
     },
 
     fillDataOfNumberOfSales: function(){
-      let client = [1, 2, 3, 6, 8, 5, 4, 9, 16, 14, 16, 12, 13, 19, 2, 7, 0, 4, 3, 7];
-      let amount = [12000, 14000, 30000, 2000, 12000, 40000, 2400, 18000, 2000, 30000, 40000, 10000, 30090, 21090, 20190, 5920, 68020, 1450, 123045, 4300];
-      let cost = [1200, 1400, 3000, 200, 1200, 4000, 240, 1800, 200, 3000, 4000, 1000, 3090, 2109, 2019, 592, 6820, 145, 12345, 430];
-      let thing = ["Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Desarrollo de aplicación web", "Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Adword", "Publicidad Web - Logotipo", "Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Adword", "Adword", "Adword", "Desarrollo de aplicación web", "Adword", "Desarrollo de aplicación web", "Publicidad Web - Anuncio", "Desarrollo de aplicación web", "Desarrollo de aplicación web"];
-      let business = ["Turismo", "Desarrollo", "Comercio", "Tienda", "Abarrotes", "Turismo", "Consultoria", "Turismo", "Venta de artículos varios", "Transporte", "Venta", "Turismo", "Constructora", "Desarrolladora", "Finanzas", "Call Center", "Abarrotes", "Transporte", "Tienda", "Comercio"];
-      let year = [2013, 2013, 2014, 2014, 2014, 2014, 2014, 2015, 2015, 2015, 2016, 2016, 2016, 2017, 2017, 2017, 2014, 2015, 2014, 2017];
+      let client = [1, 2, 3, 6, 8, 5, 4, 9, 16, 14, 16, 12, 13, 19, 2, 7, 0, 4, 3, 7, 1, 2, 3, 4, 5];
+      let amount = [620005, 640050, 700500, 700500, 625000, 705000, 640506, 680600, 406007, 357000, 408000, 706000, 600090, 410490, 501960, 693260, 683020, 154503, 423455, 690035, 640035, 590035, 790035, 695035, 800035];
+      let cost = [10000, 14000, 30000, 2000, 12000, 40000, 2400, 18000, 2000, 10000, 14000, 10000, 23090, 12109, 22019, 2592, 16820, 1145, 121345, 4310, 13000, 14000, 15000, 16000, 21000];
+      let thing = ["Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Desarrollo de aplicación web", "Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Adword", "Publicidad Web - Logotipo", "Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Adword", "Adword", "Adword", "Desarrollo de aplicación web", "Adword", "Desarrollo de aplicación web", "Publicidad Web - Anuncio", "Desarrollo de aplicación web", "Desarrollo de aplicación web", "Publicidad Web - Anuncio", "Publicidad Web - Logotipo", "Desarrollo de aplicación web", "Publicidad Web - Anuncio", "Publicidad Web - Logotipo"];
+      let business = ["Turismo", "Desarrollo", "Comercio", "Tienda", "Abarrotes", "Turismo", "Consultoria", "Turismo", "Venta de artículos varios", "Transporte", "Venta", "Turismo", "Constructora", "Desarrolladora", "Finanzas", "Call Center", "Abarrotes", "Transporte", "Tienda", "Comercio", "Turismo", "Desarrollo", "Comercio", "Tienda", "Abarrotes"];
+      let year = [2013, 2013, 2013, 2014, 2014, 2015, 2016, 2015, 2015, 2015, 2016, 2016, 2016, 2017, 2017, 2017, 2014, 2015, 2014, 2017, 2013, 2014, 2015, 2016, 2017];
       for(let i = 0; i < client.length; i++){
         console.log(i);
         this.sales.id = i;
@@ -185,6 +185,15 @@ const app = new Vue({
             console.log(data);
           })
       }
+    },
+
+    fillDataOfExpenses: function(){
+      let idExpense = [];
+      let personalIncome = this.totalIncome;
+      let rent = [];
+      let water = [];
+      let light = [];
+      let internet = [];
     },
 
     getEmployees: function () {
@@ -289,14 +298,16 @@ const app = new Vue({
     getAdministrativesExpenses: function(){
       let expenses = [0,0,0,0,0]
       this.employees.forEach(function(element){
-        expenses[0] = expenses[0] + element.income;
-        expenses[1] = expenses[1] + element.income;
-        expenses[2] = expenses[2] + element.income;
-        expenses[3] = expenses[3] + element.income;
-        expenses[4] = expenses[4] + element.income;
+        expenses[0] = expenses[0] + (element.income * 12);
+        expenses[1] = expenses[1] + (element.income * 12);
+        expenses[2] = expenses[2] + (element.income * 12);
+        expenses[3] = expenses[3] + (element.income * 12);
+        expenses[4] = expenses[4] + (element.income * 12);
       })
       console.log("Sueldo de empleados: ", expenses);
       this.totalIncomeEmployeesPerYear = expenses;
+      this.totalIncome = this.totalAmountPerYear.reduce((a, b) => a + b, 0);
+      console.log("Sueldo total de empleados: ", this.totalIncome);
       this.options.series[2].data = expenses;
     },
 

@@ -82,9 +82,9 @@
               <div class="btn-controls">
                 <div class="btn-box-row row-fluid">
                   <a href="#" class="btn-box big span4">
-                    <i class=" icon-random"></i><b>{{percentaje}}</b>
+                    <i class=" icon-random"></i><b>{{Math.round(percentaje)}}</b>
                     <p class="text-muted">
-                      Crecimiento
+                      Crecimiento en los últimos {{dataForProgress.length}}
                     </p>
                   </a>
                   <a href="personal.html" class="btn-box big span4">
@@ -106,7 +106,7 @@
                       <div class="span12">
                         <a href="message.html" class="btn-box small span4"><i class="icon-envelope"></i><b>Mensajes</b>
                         </a><a href="clients.html" class="btn-box small span4"><i class="icon-group"></i><b>Clientes</b>
-                        </a><a href="#" class="btn-box small span4"><i class="icon-exchange"></i><b>Gástos</b>
+                        </a><a href="expenses.html" class="btn-box small span4"><i class="icon-exchange"></i><b>Gástos</b>
                         </a>
                       </div>
                     </div>
