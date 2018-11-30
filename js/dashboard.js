@@ -122,7 +122,8 @@ var data = {
   totalSalesPerYear:[],
   totalIncome: [],
   budget: 0,
-  emailList: []
+  emailList: [],
+  ejemplo: ""
 }
 
 const app = new Vue({
