@@ -441,7 +441,7 @@ const app = new Vue({
         for(let task in data.body){
           this.taskList.push(data.body[task]);
         }
-        console.log(this.taskList.length)
+        console.log("Total de tareas: "+ this.taskList.length)
       })
     }
 
