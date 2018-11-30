@@ -16,60 +16,94 @@
 <body>
     <div id="app">
             <div class="navbar navbar-fixed-top">
-                <div class="navbar-inner">
+                    <div class="navbar-inner">
+                      <div class="container">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                          <i class="icon-reorder shaded"></i></a><a class="brand" href="../index.html">{{username}}</a>
+                        <div class="nav-collapse collapse navbar-inverse-collapse">
+                          <ul class="nav nav-icons">
+                            <li class="active"><a href="message.html"><i class="icon-envelope"></i></a></li>
+                          </ul>
+                          <ul class="nav pull-right">
+                            <li class="nav-user dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="images/user.png" class="nav-avatar" />
+                                <li class="active"><a href="../index.html"><i class="icon-times"></i>Cerrar sesión</a></li>
+                            </li>
+                          </ul>
+                        </div>
+                        <!-- /.nav-collapse -->
+                      </div>
+                    </div>
+                    <!-- /navbar-inner -->
+                  </div>
+                  <!-- /navbar -->
+                  <div class="wrapper">
                     <div class="container">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
-                        <i class="icon-reorder shaded"></i></a><a class="brand" href="../index.html">{{username}} </a>
-                    <div class="nav-collapse collapse navbar-inverse-collapse">
-                        <ul class="nav nav-icons">
-                        <li class="active"><a href="message.html"><i class="icon-envelope"></i></a></li>
-                        </ul>
-                        <ul class="nav pull-right">
-                        <li class="nav-user dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="images/user.png" class="nav-avatar" />
-                            <li class="active"><a href="../index.html"><i class="icon-times"></i>Cerrar sesión</a></li>
-                        </li>
-                        </ul>
+                      <div class="row">
+                        <div class="span3">
+                          <div class="sidebar">
+                            <ul class="widget widget-menu unstyled">
+                              <li class="active"><a @click="panelPrincipal"><i class="menu-icon icon-dashboard"></i>Panel
+                                  principal
+                                </a></li>
+                              <li><a href="news.html"><i class="menu-icon icon-bullhorn"></i>Noticias </a>
+                              </li>
+                              <li><a href="message.html"><i class="menu-icon icon-inbox"></i>Inbox <b class="label green pull-right">
+                                    11</b> </a></li>
+                              <li><a href="#"><i class="menu-icon icon-tasks"></i>Tareas <b class="label orange pull-right">
+                                    19</b> </a></li>
+                            </ul>
+                            <!--/.widget-nav-->
+              
+                          </div>
+                          <!--/.sidebar-->
+                        </div>
+                        <!--/.span3-->
+                        <div class="span9">
+                          <div class="content">
+                            <div class="module">
+                                <div class="task">  
+                                    <form action="#" class="form">
+                                        <h2 class="heading">
+                                            En esta sección podŕas agregar tareas y asignarlas a una persona en específico, a fin de crear estrategias para el logro de objetivos
+                                        </h2>
+                                        <div class="form__group">
+                                            <input type="text" class="form__input" v-model="tasks.taskName">
+                                            <label for="name" class="form__label">Nombre de la tarea</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form__input" v-model="tasks.taskDesc">
+                                            <label for="mail" class="form__label">Descripción</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form__input" v-model="tasks.taskTarg">
+                                            <label for="mail" class="form__label">Objetivo</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form__input" v-model="tasks.taskRisk">
+                                            <label for="mail" class="form__label">Riesgos</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <select type="text" class="form__input" v-model="tasks.taskResp">
+                                                <option v-for="employee in employees">{{employee.name}}</option>
+                                            </select>
+                                            <label for="mail" class="form__label">Responsable</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-block" v-on:click="setTask">Agregar Tarea</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!--/.module-->
+                          </div>
+                          <!--/.content-->
+                        </div>
+                        <!--/.span9-->
+                      </div>
                     </div>
-                    <!-- /.nav-collapse -->
-                    </div>
-                </div>
-                <!-- /navbar-inner -->
-        </div>
-        <div class="task">  
-            <form action="#" class="form">
-                
-                <h2 class="heading">
-                    En esta sección podŕas agregar tareas y asignarlas a una persona en específico, a fin de crear estrategias para el logro de objetivos
-                </h2>
-    
-                <div class="form__group">
-                    <input type="text" class="form__input" v-model="tasks.taskName">
-                    <label for="name" class="form__label">Nombre de la tarea</label>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form__input" v-model="tasks.taskDesc">
-                    <label for="mail" class="form__label">Descripción</label>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form__input" v-model="tasks.taskTarg">
-                    <label for="mail" class="form__label">Objetivo</label>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form__input" v-model="tasks.taskRisk">
-                    <label for="mail" class="form__label">Riesgos</label>
-                </div>
-                <div class="form-group">
-                    <select type="text" class="form__input" v-model="tasks.taskResp">
-                        <option v-for="employee in employees">{{employee.name}}</option>
-                    </select>
-                    <label for="mail" class="form__label">Responsable</label>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-primary btn-block" v-on:click="setTask">Agregar Tarea</button>
-                </div>
-            </form>
-        </div>
+                    <!--/.container-->
+                  </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
