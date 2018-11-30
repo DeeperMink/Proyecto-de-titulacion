@@ -1,0 +1,46 @@
+.task {
+  height: 100vh;
+  width: 100%;
+  display: block;
+  max-width: 50rem;
+  color: black;
+  margin: 0 auto;
+}
+
+.form {
+  width: auto;
+  height: auto;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  width: 100%;
+  height: auto;
+}
+
+.form__group {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.form__input {
+  width: 100%;
+  height: auto;
+  display: block;
+  padding: 0.5rem !important;
+  margin-bottom: 0;
+}
+
+.form__label {
+  display: block;
+  margin-bottom: 2rem;
+}
+
+/*# sourceMappingURL=task.css.map */

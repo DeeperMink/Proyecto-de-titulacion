@@ -123,7 +123,14 @@ var data = {
   totalIncome: [],
   budget: 0,
   emailList: [],
-  ejemplo: ""
+  ejemplo: "",
+  tasks:{
+    taskName: "",
+    taskDesc: "",
+    taskTarg: "",
+    taskRisk: "",
+    taskResp: ""
+  }
 }
 
 const app = new Vue({
@@ -240,6 +247,7 @@ const app = new Vue({
             employeesList.push(data[key]);
           }
           this.employees = employeesList
+          console.log(this.employees);
         })
     },
 
@@ -411,6 +419,18 @@ const app = new Vue({
       }
       console.log("Ganancia por año: ",profit);
       this.options.series[4].data = profit;
+    },
+
+    setTask: function(){
+      this.$http.post('https://bireport-4aedd.firebaseio.com/tasks.json', this.tasks)
+        .then(function(data){
+          console.log(data);
+          this.tasks.taskName = "";
+          this.tasks.taskDesc = "";
+          this.tasks.taskTarg = "";
+          this.tasks.taskRisk = "";
+          this.tasks.taskResp = "";
+        })
     }
 
   },
