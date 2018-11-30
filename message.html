@@ -47,12 +47,12 @@
         <div class="span3">
           <div class="sidebar">
             <ul class="widget widget-menu unstyled">
-              <li class="active"><a href="dashboard.html?myparam=2"><i class="menu-icon icon-dashboard"></i>Panel principal
+              <li class="active"><a @click="panelPrincipal"><i class="menu-icon icon-dashboard"></i>Panel principal
                 </a></li>
               <li><a href="news.html"><i class="menu-icon icon-bullhorn"></i>Noticias </a>
               </li>
               <li><a href="message.html"><i class="menu-icon icon-inbox"></i>Inbox <b class="label green pull-right">
-                    11</b> </a></li>
+                    {{emailList.length}}</b> </a></li>
               <li><a href="#"><i class="menu-icon icon-tasks"></i>Tareas <b class="label orange pull-right">
                     19</b> </a></li>
             </ul>

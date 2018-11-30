@@ -6,7 +6,8 @@ var data = {
     message: ""
   },
   inbox:[],
-  username: ""
+  username: "",
+  emailList: []
 }
 
 const app = new Vue({
@@ -54,8 +55,28 @@ const app = new Vue({
       this.username = username;
       console.log(username)
     },
+
+    getAllMessages: function () {
+      this.$http.get('https://bireport-4aedd.firebaseio.com/posts.json', this.contact)
+        .then(function (data) {
+          return data.json();
+        }).then(function (data) {
+          var emailList = [];
+          for (let key in data) {
+            data[key].id = key
+            emailList.push(data[key]);
+          }
+          this.emailList = emailList;
+        })
+    },
+
+    panelPrincipal: function() {
+      window.location.href = `dashboard.html?user=${this.username}`
+    }
+
   },
   beforeMount(){
     this.sendEmail();
+    this.getAllMessages();
   }
 })
