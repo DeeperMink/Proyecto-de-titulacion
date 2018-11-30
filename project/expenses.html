@@ -20,7 +20,7 @@
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
-            <i class="icon-reorder shaded"></i></a><a class="brand" href="index.html">{{username}}</a>
+            <i class="icon-reorder shaded"></i></a><a class="brand" href="../index.html">{{username}} </a>
           <div class="nav-collapse collapse navbar-inverse-collapse">
             <ul class="nav nav-icons">
               <li class="active"><a href="message.html"><i class="icon-envelope"></i></a></li>
@@ -28,7 +28,7 @@
             <ul class="nav pull-right">
               <li class="nav-user dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="images/user.png" class="nav-avatar" />
-                  <li class="active"><a href="index.html"><i class="icon-times"></i>Cerrar sesión</a></li>
+                  <li class="active"><a href="../index.html"><i class="icon-times"></i>Cerrar sesión</a></li>
               </li>
             </ul>
           </div>
@@ -47,11 +47,11 @@
                 <li class="active"><a @click="panelPrincipal"><i class="menu-icon icon-dashboard"></i>Panel
                     principal
                   </a></li>
-                <li><a href="news.html"><i class="menu-icon icon-bullhorn"></i>Noticias </a>
+                <li><a href="activity.html"><i class="menu-icon icon-bullhorn"></i>Noticias </a>
                 </li>
                 <li><a href="message.html"><i class="menu-icon icon-inbox"></i>Inbox <b class="label green pull-right">
-                      11</b> </a></li>
-                <li><a href="#"><i class="menu-icon icon-tasks"></i>Tareas <b class="label orange pull-right">
+                      {{emailList.length}}</b> </a></li>
+                <li><a href="task.html"><i class="menu-icon icon-tasks"></i>Tareas <b class="label orange pull-right">
                       19</b> </a></li>
               </ul>
               <!--/.widget-nav-->
@@ -65,34 +65,37 @@
               <div class="module">
                 <div class="module-head">
                   <h3>
-                    Total de ventas
+                    Gástos de la empresa por mes en un año
                   </h3>
                 </div>
                 <div class="module-body table">
                   <table cellpadding="0" cellspacing="0" border="0" width="100%">
                     <thead>
                       <tr>
-                        <th>Venta</th>
-                        <th>Costo de la venta</th>
-                        <th>Giro de la empresa</th>
-                        <th>Año</th>
-                        <th>Cliente</th>
+                        <th>Mes</th>
+                        <th>Sueldo del personal</th>
+                        <th>Renta</th>
+                        <th>Luz</th>
+                        <th>Agua</th>
+                        <th>Internet</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="sale in sales">
-                        <td>{{sale.thing}}</td>
-                        <td>${{sale.amount}}</td>
-                        <td>{{sale.business}}</td>
-                        <td>{{sale.year}}</td>
-                        <td>{{getClientNameWithTheId(sale.client)}}</td>
+                      <tr v-for="data in expenses">
+                        <td>{{data.month}}</td>
+                        <td>{{data.personalIncome}}</td>
+                        <td>{{data.rent}}</td>
+                        <td>{{data.water}}</td>
+                        <td>{{data.light}}</td>
+                        <td>{{data.internet}}</td>
                       </tr>
                       <tr>
-                        <td><b>Total vendido</b></td>
-                        <td><b>${{total}}</b></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td><b>Total</b></td>
+                        <td><b>{{total.income}}</b></td>
+                        <td><b>{{total.rent}}</b></td>
+                        <td><b>{{total.water}}</b></td>
+                        <td><b>{{total.light}}</b></td>
+                        <td><b>{{total.internet}}</b></td>
                       </tr>
                     </tbody>
                   </table>
@@ -124,6 +127,6 @@
   <script src="scripts/datatables/jquery.dataTables.js" type="text/javascript"></script>
   <script src="scripts/common.js" type="text/javascript"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
-  <script src="js/sales.js"></script>
+  <script src="js/expenses.js"></script>
 
 </body>

@@ -98,7 +98,7 @@
         methods: {
           register: function () {
             firebase.auth().createUserWithEmailAndPassword(this.username, this.password)
-              .then(() => { window.location.href = 'index.html' } )
+              .then(() => { window.location.href = `dashboard.html?user=${this.username}` } )
               .catch(error => alert('🤯' + error.message));
           },
 
