@@ -130,7 +130,8 @@ var data = {
     taskTarg: "",
     taskRisk: "",
     taskResp: ""
-  }
+  },
+  taskList: []
 }
 
 const app = new Vue({
@@ -431,6 +432,17 @@ const app = new Vue({
           this.tasks.taskRisk = "";
           this.tasks.taskResp = "";
         })
+    },
+
+    getTasks: function(){
+      this.$http.get('https://bireport-4aedd.firebaseio.com/tasks.json')
+      .then(function(data){
+        console.log(data);
+        for(let task in data.body){
+          this.taskList.push(data.body[task]);
+        }
+        console.log(this.taskList.length)
+      })
     }
 
   },
@@ -442,6 +454,7 @@ const app = new Vue({
     this.salesPercentage();
     this.getExpenses();
     this.getAllMessages();
+    this.getTasks();
     //this.fillDataClients();
     //this.fillDataEmployees();
     //this.fillDataOfNumberOfSales();
