@@ -6,7 +6,9 @@ var data = {
     water:0,
     light:0,
     internet:0
-  }
+  },
+  emailList: [],
+  username: ""
 }
 
 const app = new Vue({
@@ -39,9 +41,36 @@ const app = new Vue({
       })
       console.log(total);
       this.total = total;
+    },
+
+    getDataFromUser: function () {
+      let url = document.location.href;
+      let parseUrl = new URL(url);
+      let username = parseUrl.searchParams.get('user');
+      this.username = username;
+      console.log(username)
+    },
+
+    getAllMessages: function () {
+      this.$http.get('https://bireport-4aedd.firebaseio.com/posts.json', this.contact)
+        .then(function (data) {
+          return data.json();
+        }).then(function (data) {
+          var emailList = [];
+          for (let key in data) {
+            data[key].id = key
+            emailList.push(data[key]);
+          }
+          this.emailList = emailList;
+        })
+    },
+
+    panelPrincipal: function () {
+      window.location.href = `dashboard.html?user=${this.username}`
     }
   },
   beforeMount() {
     this.getExpenses();
+    this.getAllMessages();
   }
 })
