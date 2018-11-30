@@ -104,6 +104,9 @@ var data = {
     },{
       name: 'Presupuesto',
       data: []
+    },{
+      name: 'Gananciía',
+      data: []
     }]
   },
   a1: 0,
@@ -118,7 +121,8 @@ var data = {
   totalIncomeEmployeesPerYear: [],
   totalSalesPerYear:[],
   totalIncome: [],
-  budget: 0
+  budget: 0,
+  emailList: []
 }
 
 const app = new Vue({
@@ -270,6 +274,7 @@ const app = new Vue({
           this.salesPerYear();
           this.fillProgressBarData();
           this.fillBudget();
+          this.profitPerYear();
           //this.fillDataOfExpenses();
         })
     },
@@ -291,6 +296,21 @@ const app = new Vue({
       })
       this.options.xAxis.categories = years.filter((v, i, a) => a.indexOf(v) === i).sort()
       this.years = years.filter((v, i, a) => a.indexOf(v) === i).sort()
+    },
+
+    getAllMessages: function(){
+      let messages = [];
+      this.$http.get('https://bireport-4aedd.firebaseio.com/posts.json', this.contact)
+        .then(function (data) {
+          return data.json();
+        }).then(function(data){
+          var emailList = [];
+          for(let key in data){
+            data[key].id = key
+              emailList.push(data[key]);
+          }
+          this.emailList = emailList;
+        })
     },
 
     salesPercentage: function () {
@@ -377,6 +397,19 @@ const app = new Vue({
       let presupuesto = [budget, budget + 100000, budget + 130000, budget + 100000, budget + 150000];
       this.budget = presupuesto.reduce((a, b) => a + b, 0);
       this.options.series[3].data = presupuesto;
+    },
+
+    profitPerYear: function(){
+      let profit = [];
+      let budget = this.options.series[3].data;
+      let expenses = this.options.series[2].data;
+      let sales = this.options.series[1].data;
+      let amount = this.options.series[0].data;
+      for(let i = 0; i < budget.length; i++){
+        profit[i] = (amount[i] + budget[i]) - (expenses[i] + sales[i])
+      }
+      console.log("Ganancia por año: ",profit);
+      this.options.series[4].data = profit;
     }
 
   },
@@ -387,6 +420,7 @@ const app = new Vue({
     this.getTotalAmountOfSales();
     this.salesPercentage();
     this.getExpenses();
+    this.getAllMessages();
     //this.fillDataClients();
     //this.fillDataEmployees();
     //this.fillDataOfNumberOfSales();
